@@ -11,6 +11,7 @@ const gameBoard = function () {
 
     const init = function () {
         cacheDOM();
+        boardDOM.style.display = "grid";
         appendingListeners();
         renderBoard();
     }
@@ -20,10 +21,24 @@ const gameBoard = function () {
         this.fields = document.querySelectorAll(".box");
     }
 
-    const renderBoard = function () {
-        fields.forEach((field, ind) =>
-            field.innerHTML = boardArray[ind++]
-        );
+    const renderBoard = function (where) {
+       /*  fields.forEach((field, ind) => {
+            field.innerHTML = boardArray[ind++];
+        }); */
+        for (let i = 0; i < 9; i++){
+            if (boardArray[i] == "X") {
+                let cross = document.createElement("img");
+                cross.src = "Cross.png";
+                cross.classList.add("imageX");
+                document.querySelector(`.box-${i+1}`).appendChild(cross);
+            } 
+            if (boardArray[i] == "O") {
+                let circle = document.createElement("img");
+                circle.src = "circle.png";
+                circle.classList.add("imageO");
+                document.querySelector(`.box-${i+1}`).appendChild(circle);
+            }
+        }
     }
     
     const checkWin = function () {
@@ -54,20 +69,26 @@ const gameBoard = function () {
             "&#8192", "&#8192", "&#8192",
             "&#8192", "&#8192", "&#8192"
         ];
+        document.querySelectorAll(".imageX").forEach(k => k.remove());
+        document.querySelectorAll(".imageO").forEach(k => k.remove());
+        document.querySelectorAll(".x").forEach(k => k.classList.remove("x"));
+        document.querySelectorAll(".o").forEach(k => k.classList.remove("o"));
     }
 
     const makeMove = function () {
-        if (this.innerHTML != "X" && this.innerHTML != "O") {
+        if (this.innerHTML != "X"  && this.classList[3] != "x" && this.classList[3] != "o" && this.innerHTML != "O") {
             if (moveCounter % 2 == 0) {
                 boardArray[+(this.classList[0]) - 1] = "X";
+                this.classList.add("x");
             }
             else {
                 boardArray[+(this.classList[0]) - 1] = "O";
+                this.classList.add("o");
             }
             moveCounter++;
             checkWin();
             checkTie();
-            renderBoard();
+            renderBoard(this.classList[2]);
         }
     };
 
