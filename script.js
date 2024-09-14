@@ -19,12 +19,11 @@ const gameBoard = function () {
     const cacheDOM = () => {
         this.boardDOM = document.querySelector(".board");
         this.fields = document.querySelectorAll(".box");
+        this.dialogModal = document.querySelector("#dialog");
+        this.playAgainButton = document.querySelector(".resetBoard");
     }
 
-    const renderBoard = function (where) {
-       /*  fields.forEach((field, ind) => {
-            field.innerHTML = boardArray[ind++];
-        }); */
+    const renderBoard = function () {
         for (let i = 0; i < 9; i++){
             if (boardArray[i] == "X") {
                 let cross = document.createElement("img");
@@ -50,7 +49,7 @@ const gameBoard = function () {
                 checkingSign == boardArray[winningConditions[index][2]])
             {
                 console.log("Win for " + checkingSign);
-                resetBoard();
+                this.dialogModal.showModal();
             }
         }
     }
@@ -58,7 +57,7 @@ const gameBoard = function () {
     const checkTie = function () {
         if (moveCounter > 8) {
             console.log("Tie");
-            resetBoard();
+            this.dialogModal.showModal();
         }
     }
 
@@ -96,6 +95,10 @@ const gameBoard = function () {
         document.querySelectorAll(".box").forEach(btn => {
             btn.addEventListener("click", makeMove)
         })
+        document.querySelector(".resetBoard").addEventListener("click", () => {
+            this.dialogModal.close();
+        })
+        this.playAgainButton.addEventListener("click", resetBoard);
     }
 
     
