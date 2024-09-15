@@ -1,9 +1,8 @@
-
 const gameBoard = function () {
     let boardArray = [
         "&#8192", "&#8192", "&#8192",
-            "&#8192", "&#8192", "&#8192",
-            "&#8192", "&#8192", "&#8192"
+        "&#8192", "&#8192", "&#8192",
+        "&#8192", "&#8192", "&#8192"
     ];
 
     this.winningConditions = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
@@ -27,36 +26,43 @@ const gameBoard = function () {
     }
 
     const renderBoard = function () {
-        for (let i = 0; i < 9; i++){
+        for (let i = 0; i < 9; i++) {
             if (boardArray[i] == "X") {
                 let cross = document.createElement("img");
                 cross.src = "Cross.png";
                 cross.classList.add("imageX");
-                document.querySelector(`.box-${i+1}`).appendChild(cross);
-            } 
+                document.querySelector(`.box-${i + 1}`).appendChild(cross);
+            }
             if (boardArray[i] == "O") {
                 let circle = document.createElement("img");
                 circle.src = "circle.png";
                 circle.classList.add("imageO");
-                document.querySelector(`.box-${i+1}`).appendChild(circle);
+                document.querySelector(`.box-${i + 1}`).appendChild(circle);
             }
         }
     }
-    
+
     const checkWin = function () {
         for (let index = 0; index < 8; index++) {
             let checkingSign = boardArray[winningConditions[index][0]];
 
             if (checkingSign != "&#8192" &&
                 checkingSign == boardArray[winningConditions[index][1]] &&
-                checkingSign == boardArray[winningConditions[index][2]])
-            {
-                console.log("Win for " + checkingSign);
-                checkingSign == "X" ? pointsX++ : pointsO++; 
+                checkingSign == boardArray[winningConditions[index][2]]) {
+                markWin(index);
+                checkingSign == "X" ? pointsX++ : pointsO++;
                 score.innerHTML = `${pointsX} : ${pointsO}`;
-                this.dialogModal.showModal();
+                setTimeout(() => {
+                    this.dialogModal.showModal();
+                }, 800)
             }
         }
+    }
+
+    const markWin = (position) => {
+        document.querySelector(`.box-${winningConditions[position][0] + 1}`).style.backgroundColor = "rgb(221, 247, 182)";
+        document.querySelector(`.box-${winningConditions[position][1] + 1}`).style.backgroundColor = "rgb(221, 247, 182)";
+        document.querySelector(`.box-${winningConditions[position][2] + 1}`).style.backgroundColor = "rgb(221, 247, 182)";
     }
 
     const checkTie = function () {
@@ -77,10 +83,11 @@ const gameBoard = function () {
         document.querySelectorAll(".imageO").forEach(k => k.remove());
         document.querySelectorAll(".x").forEach(k => k.classList.remove("x"));
         document.querySelectorAll(".o").forEach(k => k.classList.remove("o"));
+        document.querySelectorAll(".box").forEach(item => item.style.backgroundColor = "rgb(0, 0, 0, 0)")
     }
 
     const makeMove = function () {
-        if (this.innerHTML != "X"  && this.classList[3] != "x" && this.classList[3] != "o" && this.innerHTML != "O") {
+        if (this.innerHTML != "X" && this.classList[3] != "x" && this.classList[3] != "o" && this.innerHTML != "O") {
             if (moveCounter % 2 == 0) {
                 boardArray[+(this.classList[0]) - 1] = "X";
                 this.classList.add("x");
@@ -106,7 +113,6 @@ const gameBoard = function () {
         this.playAgainButton.addEventListener("click", resetBoard);
     }
 
-    
     return {
         init,
         renderBoard,
@@ -160,6 +166,5 @@ const startScreen = function () {
     }
 
 }();
-
 
 startScreen.init();
