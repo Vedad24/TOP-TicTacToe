@@ -9,12 +9,27 @@
 <body>
     
     <div class="container">
+        <div class="header">
+            <h1>Tic Tac Toe</h1>
+            <div class="scoreboard">
+            </div>
+        </div>
+        <div class="inputX">
+            <label for="playerX">Enter name for X:</label>
+            <input type="text" placeholder="Player-1" id="playerX">
+        </div>
+        <div class="inputO">
+            <label for="playerX">Enter name for O:</span></label>
+            <input type="text" placeholder="Player-2" id="playerO">
+        </div>
+        <button type="button" class="startButton">Play</button>
+
+
         <dialog id="dialog">
             <form action="">
                 <button type="button" class="resetBoard">Play Again</button>
             </form>
         </dialog>
-        <h1>Tic Tac Toe</h1>
         <div class="board">
             <button class="1 box box-1"></button>
             <button class="2 box box-2"></button>

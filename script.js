@@ -21,6 +21,9 @@ const gameBoard = function () {
         this.fields = document.querySelectorAll(".box");
         this.dialogModal = document.querySelector("#dialog");
         this.playAgainButton = document.querySelector(".resetBoard");
+        this.score = document.querySelector(".score");
+        this.pointsX = 0;
+        this.pointsO = 0;
     }
 
     const renderBoard = function () {
@@ -49,6 +52,8 @@ const gameBoard = function () {
                 checkingSign == boardArray[winningConditions[index][2]])
             {
                 console.log("Win for " + checkingSign);
+                checkingSign == "X" ? pointsX++ : pointsO++; 
+                score.innerHTML = `${pointsX} : ${pointsO}`;
                 this.dialogModal.showModal();
             }
         }
@@ -105,8 +110,56 @@ const gameBoard = function () {
     return {
         init,
         renderBoard,
-        makeMove
+        makeMove,
     }
 }();
 
-gameBoard.init();
+const startScreen = function () {
+    const init = function () {
+        cacheStartDOM();
+        appendingListeners();
+    }
+
+    const cacheStartDOM = () => {
+        this.startButton = document.querySelector(".startButton");
+        this.inputXElement = document.querySelector(".inputX");
+        this.inputOElement = document.querySelector(".inputO");
+        this.scoreElement = document.querySelector(".scoreboard");
+        this.dialogElement = document.querySelector("#dialog");
+        this.nameX = document.querySelector("#playerX");
+        this.nameO = document.querySelector("#playerO");
+    };
+
+    const createScoreboard = () => {
+        const names = document.createElement("h2");
+        names.classList.add("names");
+        names.innerHTML = `${this.nameX.value == "" ? "Player-1" : this.nameX.value} vs ${this.nameO.value == "" ? "Player-2" : this.nameO.value}`;
+        const score = document.createElement("h2");
+        score.classList.add("score");
+        score.innerHTML = "0 : 0";
+        this.scoreElement.appendChild(names);
+        this.scoreElement.appendChild(score);
+    }
+
+    const startFunction = () => {
+        this.startButton.style.display = "none";
+        this.inputXElement.style.display = "none";
+        this.inputOElement.style.display = "none";
+        createScoreboard();
+        gameBoard.init();
+        this.dialogElement.style.display = "flex";
+        this.scoreElement.style.display = "flex";
+    };
+
+    const appendingListeners = () => {
+        this.startButton.addEventListener("click", startFunction);
+    }
+
+    return {
+        init
+    }
+
+}();
+
+
+startScreen.init();
