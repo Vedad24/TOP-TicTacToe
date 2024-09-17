@@ -19,6 +19,7 @@ const gameBoard = function () {
         this.boardDOM = document.querySelector(".board");
         this.fields = document.querySelectorAll(".box");
         this.dialogModal = document.querySelector("#dialog");
+        this.dialogButton = document.querySelector(".resetBoard");
         this.playAgainButton = document.querySelector(".resetBoard");
         this.score = document.querySelector(".score");
         this.pointsX = 0;
@@ -54,6 +55,7 @@ const gameBoard = function () {
                 score.innerHTML = `${pointsX} : ${pointsO}`;
                 setTimeout(() => {
                     this.dialogModal.showModal();
+                    dialogButton.style.display = "block";
                 }, 800)
             }
         }
@@ -69,6 +71,7 @@ const gameBoard = function () {
         if (moveCounter > 8) {
             console.log("Tie");
             this.dialogModal.showModal();
+            dialogButton.style.display = "block";
         }
     }
 
@@ -84,6 +87,7 @@ const gameBoard = function () {
         document.querySelectorAll(".x").forEach(k => k.classList.remove("x"));
         document.querySelectorAll(".o").forEach(k => k.classList.remove("o"));
         document.querySelectorAll(".box").forEach(item => item.style.backgroundColor = "rgb(0, 0, 0, 0)")
+        dialogButton.style.display = "none";
     }
 
     const makeMove = function () {

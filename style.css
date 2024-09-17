@@ -76,8 +76,13 @@
     cursor: pointer;
 }
 
+
 .startButton:hover {
     filter: brightness(90%);
+}
+
+.resetBoard{
+    display: none;
 }
 
 @media screen and (min-width: 1700px) {
@@ -206,4 +211,129 @@
     border-radius: 20px;
     background-color: bisque;
     cursor: pointer;
+}
+
+@media  screen and (max-width: 500px ) and (max-height: 1000px) {
+    .container{
+        grid-template-rows: 0.3fr 1fr;
+    }
+
+    .container .header h1{
+        font-size: 60px;
+        padding: 1rem;
+    }
+
+    .header .scoreboard {
+        margin-top: 1.5rem;
+        font-size: 22px;
+    }
+
+    .header .scoreboard .names {
+        letter-spacing: 2px;
+        font-size: 30px;
+    }
+
+    .startButton {
+        font-size: 50px;
+        width: 200px;
+        height: 100px;
+        border-radius: 30px;
+        margin-top: 10rem;
+    }
+
+    #dialog button {
+        width: 200px;
+        height: 70px;
+        font-size: 30px;
+        border-radius: 20px;
+        background-color: bisque;
+        cursor: pointer;
+    }
+
+    .inputX, .inputO {
+        margin-top: 14rem;
+        font-size: 30px;
+        width: 230px;
+        left: 6rem;
+    }
+
+    .inputX{
+        top: 20rem;
+    }
+
+    .inputO{
+        top: 30rem;
+    }
+
+    #playerX, #playerO {
+        padding: 0.2rem 1rem;
+        font-size: 25px;
+        outline: 0;
+        letter-spacing: 2px;
+        border-radius: 10px;
+    }
+
+    .board{
+        margin-top: 10rem;
+        width: 300px;
+        height: 300px;
+    }
+}
+
+@media  screen and (max-width: 400px ) and (max-height: 800px){
+    .container .header h1{
+        font-size: 50px;
+    }
+
+    .startButton {
+        margin-top: 6rem;
+    }
+
+    .inputX{
+        top: 12rem;
+    }
+
+    .inputO{
+        top: 20rem;
+    }
+
+    .inputX, .inputO {
+        margin-top: 14rem;
+        font-size: 30px;
+        width: 230px;
+        left: 5rem;
+    }
+
+    .board{
+        margin-top: 6rem;
+        width: 300px;
+        height: 300px;
+    }
+}
+
+@media screen and (max-width:350px) and (max-height:580px){
+    .container .header h1{
+        font-size: 40px;
+    }
+
+    .startButton {
+        margin-top: 4rem;
+    }
+
+    .inputO, .inputX{
+        left: 3rem;
+    }
+
+    .inputX{
+        top: 8rem;
+    }
+
+    .inputO{
+        top: 14rem;
+    }
+
+    .board{
+        width: 250px;
+        height: 250px;
+    }
 }
